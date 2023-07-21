@@ -1,7 +1,76 @@
 import random
 
 
-#All the random tables that can be selected are listed below. 
+ 
+class Player:
+    def __init__(self):
+        self.hp = 15
+        self.sp = 15 + random.randint(1, 6)
+        self.weapons = [self.get_random_item("Weapons")]
+        self.item = [self.get_random_item("starting_item")]
+        self.history = []
+
+    def get_random_start_item(self):
+        pass
+    
+    def explore(self):
+        pass
+    
+    def combat(self):
+        pass
+    
+    def use_item(self):
+        pass
+
+class Weapons:
+    def __init__(self, name, damage, properties):
+        self.name = name
+        self.damage = damage
+        self.properties = properties
+    
+    def use(self):
+        pass
+    
+class Items:
+    def __init__(self, name, description):
+        self.name = name
+        self.description = description
+
+    def use(self):
+        pass
+
+class Monster:
+    def __init__(self, name, to_hit, points, damage, mhp, loot):
+        self.name = name
+        self.to_hit = to_hit
+        self.points = points 
+        self.damage = damage
+        self.mhp = mhp
+        self.loot = loot
+
+    def combat(self):
+        pass
+
+#adding all items, weapons and monsters to the game
+#items
+item1 = Items("set of armour","-d4 damage")
+item2 = Items("potion","heal d6 hp")
+item3 = Items("scroll (summon weak daemon)", "The daemon helps you d4 fights dealing d4 damage.")
+item4 = Items("cloak of invisibility", "Avoid d4 fights while acquiring all monster points.")
+
+
+#Weapons
+weapon1 = Weapons("warhammer", 6, None)
+weapon2 = Weapons("dagger", 4, "+1")
+weapon3 = Weapons("sword", 6, "+1")
+weapon4 = Weapons("flail", 6+1, None)
+
+#Monsters
+Monster1 = Monster("blood-drenched skeleton",3,3,4,6, weapon1)
+Monster2 = 
+#All the random tables that can be selected are listed below.
+
+
 
 tables = {
     "weapons": {
@@ -64,7 +133,7 @@ monsters = {
         "points": 3,
         "damage": 4,
         "mhp": 6,
-        "loot": random.get_random_item("scrolls")
+        "loot": get_random_item("scrolls")
     },
     "goblin": {
         "category": "weak",
@@ -126,12 +195,17 @@ def get_random_other(table_name):
     chosen_item = random.choice(table_data["items"])
     return chosen_item, table_data["category"]
 
+def get_random_monster(category):
+    monster_list = [monster for monster, data in monsters.items() if data["category"] == category]
+    chosen_monster = random.choice(monster_list)
+    return chosen_monster, category
+
 def table_entrance():
     options = [
         get_random_items("items"),
         get_random_other("scrolls"),
         f"a dying mystic gives you {get_random_other('scrolls')[0]}",
-        f"{get_random_other('weak')[0]} stands guard. Attack!",
+        f"{get_random_monster('weak')[0]} stands guard. Attack!",
         "You find the entrance is eerily quiet and desolate"
     ]
     
@@ -142,31 +216,11 @@ def table_entrance():
 def darkfort():
 
     #Start of game variables
-    hp = 15
-    sp = 15 + random.randint(1,6)
-    weapons = {get_random_other("weapons")[0]: 1}
-    items = {get_random_items("starting_item")[0]: 1}
-    history = []
-    attacked = False
-    roll = random.randint(1,4) 
+    Player()
     print(f"\nYour name is Kargunt. You begin with 15 hit points (hp) and {sp} silver (sp). You may carry unlimited items. \nYou own one weapon: {list(weapons.keys())[0]} and one {list(items.keys())[0]}.\n")
-    
-    #In game functions
-    # def combat(monster):
-    #     points = 
-    #     mhp = 
-    #     damage = 
-    #     while mhp >0:
-    #         return
-
-    #Start menu        
-    
-
-        
     print(f"Torch lit and {list(weapons.keys())[0].split()[0]} raised, you enter the dungeon.")
-
     print("What do you do?")
-    
+    table_entrance()
     while hp > 0:
         if attacked:
             combat(outcome[0])
