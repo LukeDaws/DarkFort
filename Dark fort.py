@@ -6,13 +6,18 @@ class Player:
     def __init__(self):
         self.hp = 15
         self.sp = 15 + random.randint(1, 6)
-        self.weapons = [self.get_random_item("Weapons")]
-        self.item = [self.get_random_item("starting_item")]
+        self.weapons = [self.get_random_item("weapon")]
+        self.items = [self.get_random_start_item()]
         self.history = []
 
     def get_random_start_item(self):
-        pass
-    
+        start_items = [item1,item2,item3,item4]
+        return random.choice(start_items)
+
+    def get_random_item(self,name):
+        weapon = [weapon1,weapon2,weapon3,weapon4]
+        return random.choice(name)
+
     def explore(self):
         pass
     
@@ -57,7 +62,7 @@ item1 = Items("set of armour","-d4 damage")
 item2 = Items("potion","heal d6 hp")
 item3 = Items("scroll (summon weak daemon)", "The daemon helps you d4 fights dealing d4 damage.")
 item4 = Items("cloak of invisibility", "Avoid d4 fights while acquiring all monster points.")
-
+item5 = Items("rope", "+1 on a trap roll")
 
 #Weapons
 weapon1 = Weapons("warhammer", 6, None)
@@ -66,8 +71,16 @@ weapon3 = Weapons("sword", 6, "+1")
 weapon4 = Weapons("flail", 6+1, None)
 
 #Monsters
-Monster1 = Monster("blood-drenched skeleton",3,3,4,6, weapon1)
-Monster2 = 
+monster1 = Monster("blood-drenched skeleton", 3, 3, 4, 6, weapon1)
+monster2 = Monster("catacomb cultist", 3, 3, 4, 6, "get_random_item(scrolls)")
+monster3 = Monster("goblin", 3, 3, 4, 5, item5)
+monster4 = Monster("undead hound", 3, 3, 4, 5, None)
+monster5 = Monster("necro sorcerer", 4, 4, 4,8, "silver random.randint(3, 24)")
+monster6 = Monster("small stone troll",5,7,6+1,9,None)
+monster7 = Monster("medusa",4,4,6,10,"sliver random.randint(1,4)*random.randint(1,6)")
+monster8 = Monster("ruin basilisk",4,4,6,11,None)
+
+
 #All the random tables that can be selected are listed below.
 
 
@@ -118,98 +131,98 @@ items_table = {
 
 #dictionary of monsters and their stats
 #Weak monsters
-monsters = {
-    "blood-drenched skeleton": {
-        "category": "weak",
-        "to_hit": 3,
-        "points": 3,
-        "damage": 4,
-        "mhp": 6,
-        "loot": "dagger (d4, +1 attack)"
-    },
-    "catacomb cultist": {
-        "category": "weak",
-        "to_hit": 3,
-        "points": 3,
-        "damage": 4,
-        "mhp": 6,
-        "loot": get_random_item("scrolls")
-    },
-    "goblin": {
-        "category": "weak",
-        "to_hit": 3,
-        "points": 3,
-        "damage": 4,
-        "mhp": 5,
-        "loot": "rope (+1 on a trap roll)"
-    },
-    "undead hound": {
-        "category": "weak",
-        "to_hit": 3,
-        "points": 3,
-        "damage": 4,
-        "mhp": 5,
-        "loot": None
-    },
-    "necro sorcerer": {
-        "category": "tough",
-        "to_hit": 4,
-        "points": 4,
-        "damage": 4,
-        "other_attack": False,
-        "other_attack_damage": 6,
-        "mhp": 8,
-        "loot": random.randint(3, 24)  # silver
-    },
-    "small stone troll":{
-        "category": "tough",
-        "to hit":5,
-        "points":7,
-        "damage":6, #+1
-        "mhp":9,
-    },
-    "medusa":{
-        "category": "tough",
-        "to hit":4,
-        "points":4,
-        "damage":6, 
-        "mhp":10,
-        "loot":random.randint(1,4)*random.randint(1,6) #silver
-    },
-    "ruin basilisk":{
-        "category": "tough",
-        "to hit":4,
-        "points":4,
-        "damage":6,
-        "mhp":11,
-    }
-}
+# monsters = {
+#     "blood-drenched skeleton": {
+#         "category": "weak",
+#         "to_hit": 3,
+#         "points": 3,
+#         "damage": 4,
+#         "mhp": 6,
+#         "loot": "dagger (d4, +1 attack)"
+#     },
+#     "catacomb cultist": {
+#         "category": "weak",
+#         "to_hit": 3,
+#         "points": 3,
+#         "damage": 4,
+#         "mhp": 6,
+#         "loot": get_random_item("scrolls")
+#     },
+#     "goblin": {
+#         "category": "weak",
+#         "to_hit": 3,
+#         "points": 3,
+#         "damage": 4,
+#         "mhp": 5,
+#         "loot": "rope (+1 on a trap roll)"
+#     },
+#     "undead hound": {
+#         "category": "weak",
+#         "to_hit": 3,
+#         "points": 3,
+#         "damage": 4,
+#         "mhp": 5,
+#         "loot": None
+#     },
+#     "necro sorcerer": {
+#         "category": "tough",
+#         "to_hit": 4,
+#         "points": 4,
+#         "damage": 4,
+#         "other_attack": False,
+#         "other_attack_damage": 6,
+#         "mhp": 8,
+#         "loot": random.randint(3, 24)  # silver
+#     },
+#     "small stone troll":{
+#         "category": "tough",
+#         "to hit":5,
+#         "points":7,
+#         "damage":6, #+1
+#         "mhp":9,
+#     },
+#     "medusa":{
+#         "category": "tough",
+#         "to hit":4,
+#         "points":4,
+#         "damage":6, 
+#         "mhp":10,
+#         "loot":random.randint(1,4)*random.randint(1,6) #silver
+#     },
+#     "ruin basilisk":{
+#         "category": "tough",
+#         "to hit":4,
+#         "points":4,
+#         "damage":6,
+#         "mhp":11,
+#     }
+# }
 
-def get_random_items(table_name):
-    table_data = items_table[table_name]
-    chosen_item = random.choice(table_data["items"])
-    return chosen_item, table_data["category"]
+# def get_random_items(table_name):
+#     table_data = items_table[table_name]
+#     chosen_item = random.choice(table_data["items"])
+#     return chosen_item, table_data["category"]
 
-def get_random_other(table_name):
-    table_data = tables[table_name]
-    chosen_item = random.choice(table_data["items"])
-    return chosen_item, table_data["category"]
+# def get_random_other(table_name):
+#     table_data = tables[table_name]
+#     chosen_item = random.choice(table_data["items"])
+#     return chosen_item, table_data["category"]
 
-def get_random_monster(category):
-    monster_list = [monster for monster, data in monsters.items() if data["category"] == category]
-    chosen_monster = random.choice(monster_list)
-    return chosen_monster, category
+# def get_random_monster(category):
+#     monster_list = [monster for monster, data in monsters.items() if data["category"] == category]
+#     chosen_monster = random.choice(monster_list)
+#     return chosen_monster, category
 
-def table_entrance():
-    options = [
-        get_random_items("items"),
-        get_random_other("scrolls"),
-        f"a dying mystic gives you {get_random_other('scrolls')[0]}",
-        f"{get_random_monster('weak')[0]} stands guard. Attack!",
-        "You find the entrance is eerily quiet and desolate"
-    ]
+# def table_entrance():
+#     options = [
+#         get_random_items("items"),
+#         get_random_other("scrolls"),
+#         f"a dying mystic gives you {get_random_other('scrolls')[0]}",
+#         f"{get_random_monster('weak')[0]} stands guard. Attack!",
+#         "You find the entrance is eerily quiet and desolate"
+#     ]
     
-    return random.choice(options)
+#     return random.choice(options)
 
 
 #This is the game function
@@ -217,21 +230,16 @@ def darkfort():
 
     #Start of game variables
     Player()
-    print(f"\nYour name is Kargunt. You begin with 15 hit points (hp) and {sp} silver (sp). You may carry unlimited items. \nYou own one weapon: {list(weapons.keys())[0]} and one {list(items.keys())[0]}.\n")
-    print(f"Torch lit and {list(weapons.keys())[0].split()[0]} raised, you enter the dungeon.")
+    print(f"\nYour name is Kargunt. You begin with 15 hit points (hp) and {Player.sp} silver (sp). You may carry unlimited items. \nYou own one weapon: {Player.weapons} and one {Player.items}.\n")
+    print(f"Torch lit and {Player.weapons.name} raised, you enter the dungeon.")
     print("What do you do?")
-    table_entrance()
+    
     while hp > 0:
-        if attacked:
-            combat(outcome[0])
-            attacked = False
-            
-
         hp = 0
         #When someone dies their history is shown
         print("\nYou have perished\n")
-        history.append("You have perished")
-        for i in history:
+        Player.history.append("You have perished")
+        for i in Player.history:
             print(i)
     return
 
